@@ -40,8 +40,13 @@ describe("stdio MCP tools", () => {
     const listed = await client.listTools();
     expect(listed.tools.map((tool) => tool.name).sort()).toEqual([
       "stock_adjust",
+      "stock_create_purchase_order",
       "stock_get_balance",
+      "stock_receive_shipment",
+      "stock_record_count",
+      "stock_reorder_recommendations",
       "stock_search_catalog",
+      "stock_start_cycle_count",
       "stock_transfer",
     ]);
 

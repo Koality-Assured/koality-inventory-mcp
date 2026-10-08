@@ -14,6 +14,11 @@ export interface InventoryClient {
     toLocationId: string;
     quantity: number;
   }): Promise<unknown>;
+  reorderRecommendations(): Promise<unknown>;
+  createPurchaseOrder(body: unknown): Promise<unknown>;
+  receiveShipment(body: unknown): Promise<unknown>;
+  startCycleCount(body: unknown): Promise<unknown>;
+  recordCount(body: unknown): Promise<unknown>;
 }
 
 export function createInventoryClient(env: Record<string, string | undefined>): InventoryClient {
@@ -51,6 +56,27 @@ export function createInventoryClient(env: Record<string, string | undefined>): 
     },
     transfer(body) {
       return request("/api/v1/stock/transfers", { method: "POST", body: JSON.stringify(body) });
+    },
+    reorderRecommendations() {
+      return request("/api/v1/procurement/reorder-recommendations");
+    },
+    createPurchaseOrder(body) {
+      return request("/api/v1/procurement/purchase-orders", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+    },
+    receiveShipment(body) {
+      return request("/api/v1/procurement/receipts", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+    },
+    startCycleCount(body) {
+      return request("/api/v1/cycle-counts", { method: "POST", body: JSON.stringify(body) });
+    },
+    recordCount(body) {
+      return request("/api/v1/cycle-counts/record", { method: "POST", body: JSON.stringify(body) });
     },
   };
 }

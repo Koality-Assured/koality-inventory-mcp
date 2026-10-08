@@ -40,6 +40,72 @@ export function createInventoryMcpServer(inventory: InventoryClient): McpServer 
   );
 
   server.registerTool(
+    "stock_reorder_recommendations",
+    {
+      description: "Recommend replenishment quantities where ATP is at or below the reorder point.",
+      inputSchema: {},
+    },
+    async () => jsonResult(await inventory.reorderRecommendations()),
+  );
+
+  server.registerTool(
+    "stock_create_purchase_order",
+    {
+      description: "Draft a purchase order for a vendor.",
+      inputSchema: {
+        vendorId: z.string().min(1),
+        lines: z.array(
+          z.object({
+            skuId: z.string().min(1),
+            locationId: z.string().min(1),
+            quantity: z.number().int().positive(),
+            unitCostCents: z.number().int().nonnegative(),
+          }),
+        ),
+      },
+    },
+    async (args) => jsonResult(await inventory.createPurchaseOrder(args)),
+  );
+
+  server.registerTool(
+    "stock_receive_shipment",
+    {
+      description: "Receive quantity against an approved purchase order line.",
+      inputSchema: {
+        poId: z.string().min(1),
+        lineId: z.string().min(1),
+        quantity: z.number().int().positive(),
+      },
+    },
+    async (args) => jsonResult(await inventory.receiveShipment(args)),
+  );
+
+  server.registerTool(
+    "stock_start_cycle_count",
+    {
+      description: "Start a blind cycle count for SKUs at a location.",
+      inputSchema: {
+        locationId: z.string().min(1),
+        skuIds: z.array(z.string().min(1)),
+      },
+    },
+    async (args) => jsonResult(await inventory.startCycleCount(args)),
+  );
+
+  server.registerTool(
+    "stock_record_count",
+    {
+      description: "Record a blind count quantity for a cycle count line.",
+      inputSchema: {
+        cycleId: z.string().min(1),
+        lineId: z.string().min(1),
+        countedQty: z.number().int().nonnegative(),
+      },
+    },
+    async (args) => jsonResult(await inventory.recordCount(args)),
+  );
+
+  server.registerTool(
     "stock_transfer",
     {
       description: "Move on-hand stock into in-transit toward another location.",
