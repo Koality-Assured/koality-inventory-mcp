@@ -4,7 +4,15 @@ Standalone Model Context Protocol server for [koality-inventory](https://github.
 
 Local agents connect over **stdio**. Remote enterprise deployments use a single **Streamable HTTP** endpoint. The deprecated HTTP+SSE dual connection is not implemented.
 
-Slice 0 scaffolds the TypeScript package, lint, and CI. Tool handlers connect to a running inventory API in a later slice.
+Local agents launch the server over stdio. Point it at a running inventory API:
+
+```bash
+set KOALITY_INVENTORY_API_URL=http://127.0.0.1:3000
+set KOALITY_INVENTORY_TOKEN=<access-token>
+npm start
+```
+
+Slice 2 tools: `stock_get_balance`, `stock_search_catalog`, `stock_adjust`, `stock_transfer`.
 
 ```bash
 npm ci

@@ -1,13 +1,17 @@
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+import { createInventoryClient } from "./inventory-client.js";
+import { createInventoryMcpServer } from "./server.js";
 import { assertSupportedTransport } from "./transports.js";
 
-const transport = assertSupportedTransport(process.argv[2] ?? "stdio");
+const transportName = assertSupportedTransport(process.argv[2] ?? "stdio");
 
-if (transport === "stdio") {
+if (transportName !== "stdio") {
   process.stderr.write(
-    "koality-inventory-mcp stdio transport is scaffolded. Tools land in a later slice.\n",
+    "Streamable HTTP is not enabled yet. Use the stdio transport for local agents.\n",
   );
-} else {
-  process.stderr.write(
-    "koality-inventory-mcp Streamable HTTP transport is scaffolded. The endpoint lands in a later slice.\n",
-  );
+  process.exit(1);
 }
+
+const server = createInventoryMcpServer(createInventoryClient(process.env));
+await server.connect(new StdioServerTransport());
