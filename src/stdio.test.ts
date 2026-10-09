@@ -56,6 +56,12 @@ describe("stdio MCP tools", () => {
     });
     expect(textOf(balance)).toContain('"atp":2');
 
+    const located = await client.callTool({
+      name: "stock_get_balance",
+      arguments: { skuId: "sku_test", locationId: "loc_bin" },
+    });
+    expect(textOf(located)).toContain("loc_bin");
+
     const search = await client.callTool({
       name: "stock_search_catalog",
       arguments: { query: "widget" },
@@ -110,7 +116,10 @@ function listen(): Promise<{ url: string; close: () => Promise<void> }> {
     }
     const url = request.url ?? "";
     if (url.startsWith("/api/v1/stock/balances")) {
-      json(response, { balance: { skuId: "sku_test", onHand: 4, atp: 2 } });
+      const locationId = new URL(url, "http://127.0.0.1").searchParams.get("locationId");
+      json(response, {
+        balance: { skuId: "sku_test", onHand: 4, atp: 2, locationId },
+      });
       return;
     }
     if (url.startsWith("/api/v1/items")) {
