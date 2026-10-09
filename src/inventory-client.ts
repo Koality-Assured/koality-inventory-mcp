@@ -1,5 +1,5 @@
 export interface InventoryClient {
-  getBalance(skuId: string): Promise<unknown>;
+  getBalance(skuId: string, locationId?: string): Promise<unknown>;
   searchCatalog(query: string): Promise<unknown>;
   adjust(body: {
     skuId: string;
@@ -45,8 +45,12 @@ export function createInventoryClient(env: Record<string, string | undefined>): 
   }
 
   return {
-    getBalance(skuId) {
-      return request(`/api/v1/stock/balances?skuId=${encodeURIComponent(skuId)}`);
+    getBalance(skuId, locationId) {
+      const params = new URLSearchParams({ skuId });
+      if (locationId) {
+        params.set("locationId", locationId);
+      }
+      return request(`/api/v1/stock/balances?${params.toString()}`);
     },
     searchCatalog(query) {
       return request(`/api/v1/items?q=${encodeURIComponent(query)}`);

@@ -9,10 +9,14 @@ export function createInventoryMcpServer(inventory: InventoryClient): McpServer 
   server.registerTool(
     "stock_get_balance",
     {
-      description: "Retrieve on-hand, allocated, ATP, and in-transit quantities for a SKU.",
-      inputSchema: { skuId: z.string().min(1) },
+      description:
+        "Retrieve on-hand, allocated, ATP, and in-transit quantities for a SKU. Pass locationId for one bin.",
+      inputSchema: {
+        skuId: z.string().min(1),
+        locationId: z.string().min(1).optional(),
+      },
     },
-    async ({ skuId }) => jsonResult(await inventory.getBalance(skuId)),
+    async ({ skuId, locationId }) => jsonResult(await inventory.getBalance(skuId, locationId)),
   );
 
   server.registerTool(
