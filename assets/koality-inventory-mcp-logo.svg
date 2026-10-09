@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#141E33" />
+      <stop offset="60%" stop-color="#0A0E1A" />
+      <stop offset="100%" stop-color="#050811" />
+    </radialGradient>
+    
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.8" />
+      <stop offset="40%" stop-color="#6366F1" stop-opacity="0.4" />
+      <stop offset="80%" stop-color="#0D9488" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Isometric Cube Gradients -->
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#0891B2" />
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E7490" />
+      <stop offset="100%" stop-color="#0A0F1D" />
+    </linearGradient>
+
+    <!-- Glowing Accents -->
+    <linearGradient id="neonTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2DD4BF" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+
+    <linearGradient id="connectorGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+
+    <!-- Filters for Glow -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur1" />
+      <feGaussianBlur stdDeviation="14" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Base Badge Card -->
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="3" />
+
+  <!-- Background Neural Grid & Circuit Network -->
+  <g opacity="0.25" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="3 6">
+    <path d="M 90 120 L 170 120 L 220 170" fill="none" />
+    <path d="M 422 120 L 342 120 L 292 170" fill="none" />
+    <path d="M 80 390 L 160 390 L 210 340" fill="none" />
+    <path d="M 432 390 L 352 390 L 302 340" fill="none" />
+    <line x1="256" y1="40" x2="256" y2="120" />
+    <line x1="256" y1="392" x2="256" y2="472" />
+  </g>
+
+  <!-- Circuit Nodes / MCP Connection Points -->
+  <g fill="#22D3EE" opacity="0.6">
+    <circle cx="90" cy="120" r="4" />
+    <circle cx="422" cy="120" r="4" />
+    <circle cx="80" cy="390" r="4" />
+    <circle cx="432" cy="390" r="4" />
+    <circle cx="256" cy="40" r="4" />
+    <circle cx="256" cy="472" r="4" />
+  </g>
+
+  <!-- Outer Orbital Synaptic Halo -->
+  <ellipse cx="256" cy="256" rx="190" ry="85" fill="none" stroke="url(#neonTeal)" stroke-width="1.5" opacity="0.3" transform="rotate(-20 256 256)" stroke-dasharray="8 12" />
+  <ellipse cx="256" cy="256" rx="190" ry="85" fill="none" stroke="url(#connectorGrad)" stroke-width="2" opacity="0.7" transform="rotate(25 256 256)" filter="url(#subtleGlow)" stroke-dasharray="80 180" />
+
+  <!-- Central Inventory Cube Shadow -->
+  <ellipse cx="256" cy="365" rx="110" ry="32" fill="#030712" opacity="0.75" />
+
+  <!-- Isometric Stock Storage Cube (Core Data/Inventory Unit) -->
+  <g id="inventory-cube" transform="translate(0, -10)">
+    <!-- Top Face -->
+    <path d="M 256 160 L 356 215 L 256 270 L 156 215 Z" fill="url(#cubeTop)" />
+    
+    <!-- Left Face -->
+    <path d="M 156 215 L 256 270 L 256 385 L 156 330 Z" fill="url(#cubeLeft)" />
+    
+    <!-- Right Face -->
+    <path d="M 256 270 L 356 215 L 356 330 L 256 385 Z" fill="url(#cubeRight)" />
+
+    <!-- Isometric Seams / High-Tech Compartment Grooves -->
+    <path d="M 256 160 L 256 270 M 156 215 L 256 270 M 356 215 L 256 270" fill="none" stroke="#67E8F9" stroke-width="2" opacity="0.6" />
+    
+    <!-- Glowing Top Surface Circuit/Protocol Matrix -->
+    <g fill="none" stroke="#CFFAFE" stroke-width="2.5" opacity="0.85" filter="url(#subtleGlow)">
+      <polygon points="256,182 322,218 256,254 190,218" stroke-dasharray="6 4" />
+      <circle cx="256" cy="218" r="7" fill="#A5F3FC" />
+    </g>
+
+    <!-- Side Data Bars (Stock Indicators) -->
+    <g stroke="#38BDF8" stroke-width="3" opacity="0.8" stroke-linecap="round">
+      <line x1="186" y1="262" x2="226" y2="284" />
+      <line x1="186" y1="282" x2="216" y2="299" />
+      <line x1="186" y1="302" x2="236" y2="330" />
+
+      <line x1="286" y1="284" x2="326" y2="262" stroke="#2DD4BF" />
+      <line x1="296" y1="299" x2="326" y2="282" stroke="#2DD4BF" />
+      <line x1="276" y1="330" x2="326" y2="302" stroke="#2DD4BF" />
+    </g>
+  </g>
+
+  <!-- MCP Neural Socket & Connector Interface (The Protocol Bridge) -->
+  <g id="mcp-connector" filter="url(#neonGlow)">
+    <!-- Top Neural Uplink Plug Nodes -->
+    <path d="M 256 80 L 256 160" fill="none" stroke="url(#connectorGrad)" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- Split Branches into Cube -->
+    <path d="M 200 96 L 256 128 L 312 96" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" />
+    <circle cx="200" cy="96" r="5" fill="#38BDF8" />
+    <circle cx="312" cy="96" r="5" fill="#38BDF8" />
+    <circle cx="256" cy="80" r="7" fill="#2DD4BF" />
+
+    <!-- Protocol Synaptic Sparks / Pulses -->
+    <circle cx="256" cy="120" r="3.5" fill="#FFFFFF" />
+    <circle cx="228" cy="112" r="2.5" fill="#A5F3FC" />
+    <circle cx="284" cy="112" r="2.5" fill="#A5F3FC" />
+  </g>
+
+  <!-- Glowing Corner Accents -->
+  <g fill="none" stroke="#06B6D4" stroke-width="2" opacity="0.4">
+    <path d="M 40 80 L 40 40 L 80 40" />
+    <path d="M 472 80 L 472 40 L 432 40" />
+    <path d="M 40 432 L 40 472 L 80 472" />
+    <path d="M 472 432 L 472 472 L 432 472" />
+  </g>
+</svg>
