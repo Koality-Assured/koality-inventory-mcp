@@ -42,6 +42,7 @@ describe("stdio MCP tools", () => {
       "stock_adjust",
       "stock_create_purchase_order",
       "stock_get_balance",
+      "stock_get_valuation",
       "stock_receive_shipment",
       "stock_record_count",
       "stock_reorder_recommendations",
