@@ -19,6 +19,9 @@ export interface InventoryClient {
   receiveShipment(body: unknown): Promise<unknown>;
   startCycleCount(body: unknown): Promise<unknown>;
   recordCount(body: unknown): Promise<unknown>;
+  getValuation(skuId: string): Promise<unknown>;
+  getFacilities(): Promise<unknown>;
+  getCycleCountVariance(cycleId: string): Promise<unknown>;
 }
 
 export function createInventoryClient(env: Record<string, string | undefined>): InventoryClient {
@@ -81,6 +84,16 @@ export function createInventoryClient(env: Record<string, string | undefined>): 
     },
     recordCount(body) {
       return request("/api/v1/cycle-counts/record", { method: "POST", body: JSON.stringify(body) });
+    },
+    getValuation(skuId) {
+      const params = new URLSearchParams({ skuId });
+      return request(`/api/v1/stock/valuation?${params.toString()}`);
+    },
+    getFacilities() {
+      return request("/api/v1/locations/facilities");
+    },
+    getCycleCountVariance(cycleId) {
+      return request(`/api/v1/cycle-counts/${encodeURIComponent(cycleId)}/variance`);
     },
   };
 }
