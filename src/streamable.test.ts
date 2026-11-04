@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { execFile } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
@@ -7,9 +8,17 @@ const execFileAsync = promisify(execFile);
 describe("Streamable HTTP transport", () => {
   it("fails closed if MCP_TOKEN is unset", async () => {
     try {
-      await execFileAsync("tsx", ["src/main.ts", "streamable-http"], {
-        env: { ...process.env, MCP_TOKEN: "" },
-      });
+      await execFileAsync(
+        process.execPath,
+        [
+          fileURLToPath(new URL("../node_modules/tsx/dist/cli.mjs", import.meta.url)),
+          "src/main.ts",
+          "streamable-http",
+        ],
+        {
+          env: { ...process.env, MCP_TOKEN: "" },
+        },
+      );
       expect.fail("Should have exited with non-zero");
     } catch (err: unknown) {
       const error = err as { code: number; stderr: string };
